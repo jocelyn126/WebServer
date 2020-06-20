@@ -9,7 +9,7 @@ from socket import *
 from select import select
 
 class WebServer:
-    def __init__(self,host="0.0.0.0",port=8000,html=None):
+    def __init__(self,host="0.0.0.0",port=6007,html=None):
         self.host = host
         self.port = port
         self.html = html
