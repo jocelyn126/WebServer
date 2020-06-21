@@ -87,13 +87,12 @@ class WebServer:
             """
             response = response.encode()
         else:
-            content=fd.read()
-            response="""
-            HTTP/1.1 200 OK
-            Content-Type:text/html
-            
-            """
-            response=response.encode()+content
+            data = fd.read()
+            response = "HTTP/1.1 200 OK\r\n"
+            response += "Content-Type:text/html\r\n"
+            response += "Content-Length:%d\r\n" % len(data)
+            response += "\r\n"
+            response = response.encode() + data
             fd.close()
         finally:
             c_sock.send(response)
@@ -101,5 +100,5 @@ class WebServer:
 
 if __name__ == '__main__':
     #1调用一个类， 可以把自己做的网页让浏览器通过http协议读取
-    httpd=WebServer(host="0.0.0.0",port=6009,html="./static")
+    httpd=WebServer(host="0.0.0.0",port=6007,html="./static")
     httpd.start()
